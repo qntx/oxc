@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+*.local
+*.log
+*.tgz
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+.vite-hooks/_
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json

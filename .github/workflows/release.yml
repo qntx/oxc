@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: qntx/workflows/.github/workflows/release.yml@v2.0.0
+    permissions:
+      contents: write
+    with:
+      cliff-config: cliff.toml

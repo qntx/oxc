@@ -1,0 +1,61 @@
+{
+  "name": "@qntx/oxfmt",
+  "version": "1.0.0",
+  "description": "Shareable Oxfmt config for Vite+ apps and TypeScript libraries",
+  "keywords": [
+    "format",
+    "oxc",
+    "oxfmt",
+    "typescript",
+    "vite+",
+    "vite-plus"
+  ],
+  "homepage": "https://github.com/qntx/oxc#readme",
+  "bugs": {
+    "url": "https://github.com/qntx/oxc/issues"
+  },
+  "license": "MIT",
+  "author": "QuantX <x@qntx.fun>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qntx/oxc.git",
+    "directory": "packages/oxfmt"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "bun test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^26.4.0",
+    "oxfmt": "0.66.0",
+    "typescript": "^7.0.2",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "oxfmt": "^0.66.0"
+  },
+  "peerDependenciesMeta": {
+    "oxfmt": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
+  }
+}
