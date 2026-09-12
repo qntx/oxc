@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-09-12
+
+### Changed
+
+- Lockstep patch to verify tag-triggered OIDC publish (`v1.0.1`).
+
 ## [1.0.0] - 2026-09-11
 
 First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
@@ -24,5 +30,6 @@ First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
 - XOR: `eslint/sort-imports` off, `unicorn/empty-brace-spaces` off. `import/newline-after-import` stays `error`.
 - The sibling `qntx/oxfmt` starter is superseded by `packages/oxfmt`.
 
-[Unreleased]: https://github.com/qntx/oxc/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/qntx/oxc/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/qntx/oxc/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/qntx/oxc/releases/tag/v1.0.0
