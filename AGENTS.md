@@ -10,7 +10,7 @@
 
 ## Inventory
 
-- For every core plugin listed in `packages/oxlint/src/config.ts` and `packages/oxlint/src/react.ts`, every non-nursery Oxlint rule of that plugin must be explicit in `rules` (enabled or disabled).
+- For every core plugin listed in `src/config.ts` and `src/react.ts`, every non-nursery Oxlint rule of that plugin must be explicit in `rules` (enabled or disabled).
 - Source of truth: `oxlint --rules --format=json`. Skip `category === "nursery"`.
 - Do not use root `categories`.
 - Type-safety and correctness rules stay `error`. Do not weaken `no-explicit-any`, `no-non-null-assertion`, `strict-boolean-expressions`, or `no-unsafe-*` on production files. Test overlays may relax them the way Clippy allows unwrap in tests.

@@ -473,7 +473,7 @@ export const config = {
     "unicorn/consistent-function-scoping": "error",
     "unicorn/consistent-template-literal-escape": "error",
     "unicorn/custom-error-definition": "error",
-    "unicorn/empty-brace-spaces": "off", // oxfmt prints `{}` / `function f() {}`
+    "unicorn/empty-brace-spaces": "off", // default oxfmt prints `{}` / `function f() {}`
     "unicorn/error-message": "error",
     "unicorn/escape-case": "error",
     "unicorn/explicit-length-check": "error",

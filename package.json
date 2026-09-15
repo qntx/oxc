@@ -1,27 +1,73 @@
 {
-  "name": "oxlint",
-  "version": "0.0.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "@qntx/oxc",
+  "version": "1.1.0",
+  "description": "Shareable Oxlint config for Vite+ apps and TypeScript libraries",
+  "keywords": [
+    "lint",
+    "oxc",
+    "oxlint",
+    "oxlint-config",
+    "typescript",
+    "vite+",
+    "vite-plus"
+  ],
+  "homepage": "https://github.com/qntx/oxc#readme",
+  "bugs": {
+    "url": "https://github.com/qntx/oxc/issues"
+  },
+  "license": "MIT",
+  "author": "QuantX <x@qntx.fun>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qntx/oxc.git"
+  },
+  "files": [
+    "dist"
   ],
   "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "ready": "vp check && bun test && vp run -r build",
-    "lint": "vp check",
-    "build": "vp run -r build",
+    "ready": "vp check && bun test && vp pack",
+    "build": "vp pack",
+    "dev": "vp pack --watch",
     "test": "bun test",
     "check": "vp check",
+    "lint": "vp check",
+    "prepublishOnly": "vp run build",
     "prepare": "vp config"
   },
   "devDependencies": {
-    "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "@types/bun": "latest",
+    "@types/node": "^26.4.0",
+    "oxlint": "1.82.0",
+    "oxlint-tsgolint": ">=7.0.2001",
+    "typescript": "^7.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
+    "vite-plus": "0.3.1"
+  },
+  "peerDependencies": {
+    "oxlint": "^1.82.0",
+    "oxlint-tsgolint": ">=7.0.2001"
+  },
+  "peerDependenciesMeta": {
+    "oxlint": {
+      "optional": true
+    },
+    "oxlint-tsgolint": {
+      "optional": true
+    }
   },
   "overrides": {
     "oxlint": "1.82.0",
     "oxlint-tsgolint": "7.0.2001",
-    "vite": "catalog:"
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1"
   },
   "devEngines": {
     "packageManager": {
@@ -33,9 +79,5 @@
   "engines": {
     "bun": ">=1.4.0",
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
-  },
-  "catalog": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
-    "vite-plus": "0.3.1"
   }
 }

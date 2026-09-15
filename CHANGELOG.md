@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-15
+
+### Added
+
+- `@qntx/oxc` — single-package shareable Oxlint config (`config`, `react`, `merge`).
+
+### Removed
+
+- `@qntx/oxfmt` shareable formatter package. Use Vite+ `fmt: {}`.
+- `@qntx/oxlint` package name. Use `@qntx/oxc`.
+
 ## [1.0.2] - 2026-09-12
 
 ### Fixed
@@ -36,7 +47,8 @@ First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
 - XOR: `eslint/sort-imports` off, `unicorn/empty-brace-spaces` off. `import/newline-after-import` stays `error`.
 - The sibling `qntx/oxfmt` starter is superseded by `packages/oxfmt`.
 
-[Unreleased]: https://github.com/qntx/oxc/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/qntx/oxc/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/qntx/oxc/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/qntx/oxc/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/qntx/oxc/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/qntx/oxc/releases/tag/v1.0.0

@@ -5,37 +5,13 @@
     "": {
       "name": "oxlint",
       "devDependencies": {
-        "vite": "catalog:",
-        "vite-plus": "catalog:",
-      },
-    },
-    "packages/oxfmt": {
-      "name": "@qntx/oxfmt",
-      "version": "0.0.0",
-      "devDependencies": {
-        "@types/bun": "latest",
-        "@types/node": "^26.4.0",
-        "oxfmt": "0.66.0",
-        "typescript": "^7.0.2",
-        "vite-plus": "catalog:",
-      },
-      "peerDependencies": {
-        "oxfmt": "^0.66.0",
-      },
-      "optionalPeers": [
-        "oxfmt",
-      ],
-    },
-    "packages/oxlint": {
-      "name": "@qntx/oxlint",
-      "version": "3.0.0",
-      "devDependencies": {
         "@types/bun": "latest",
         "@types/node": "^26.4.0",
         "oxlint": "1.82.0",
         "oxlint-tsgolint": ">=7.0.2001",
         "typescript": "^7.0.2",
-        "vite-plus": "catalog:",
+        "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
+        "vite-plus": "0.3.1",
       },
       "peerDependencies": {
         "oxlint": "^1.82.0",
@@ -50,11 +26,7 @@
   "overrides": {
     "oxlint": "1.82.0",
     "oxlint-tsgolint": "7.0.2001",
-    "vite": "catalog:",
-  },
-  "catalog": {
     "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
-    "vite-plus": "0.3.1",
   },
   "packages": {
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
@@ -162,10 +134,6 @@
     "@oxlint/plugins": ["@oxlint/plugins@1.79.0", "", {}, "sha512-S0uyoxakDINJ4DPgqxGlEEvrdSMeQb7Z2lKVjxoY2gwsbZbfg2Xr8Klfeo5ZeraHmmdBCELFUHkSe6KEmBpMvg=="],
 
     "@polka/url": ["@polka/url@1.0.0-next.29", "", {}, "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="],
-
-    "@qntx/oxfmt": ["@qntx/oxfmt@workspace:packages/oxfmt"],
-
-    "@qntx/oxlint": ["@qntx/oxlint@workspace:packages/oxlint"],
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
