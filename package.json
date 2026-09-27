@@ -7,8 +7,9 @@
   ],
   "type": "module",
   "scripts": {
-    "ready": "vp check && bun test && vp run -r build",
+    "ready": "vp check && vp run -r typecheck && bun test && vp run -r build",
     "lint": "vp check",
+    "typecheck": "vp run -r typecheck",
     "build": "vp run -r build",
     "test": "bun test",
     "check": "vp check",
