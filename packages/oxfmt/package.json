@@ -1,6 +1,6 @@
 {
   "name": "@qntx/oxfmt",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Shareable Oxfmt config for Vite+ apps and TypeScript libraries",
   "keywords": [
     "format",

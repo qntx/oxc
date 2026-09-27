@@ -31,9 +31,8 @@ describe("merge", () => {
     expect(react.overrides).toHaveLength(4);
   });
 
-  // Regression: `config` must be typed `OxlintConfig`, not the literal inferred
-  // under `satisfies`. The literal's `overrides` members carry
-  // `excludeFiles?: undefined`, which `exactOptionalPropertyTypes` rejects here.
+  // Verifies the common consumer shape: appending a typed OxlintOverride to the
+  // base preset's overrides.
   test("base config merges an appended override", () => {
     const patch: OxlintOverride = { files: ["x/**"], rules: { "eslint/no-console": "off" } };
     const merged = merge(config, { overrides: [patch] });
