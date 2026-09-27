@@ -1,6 +1,6 @@
 import type { OxfmtConfig } from "oxfmt";
 
-export const fmt = {
+export const fmt: Required<OxfmtConfig> = {
   arrowParens: "always",
   bracketSameLine: false,
   bracketSpacing: true,
@@ -50,6 +50,6 @@ export const fmt = {
   trailingComma: "all",
   useTabs: false,
   vueIndentScriptAndStyle: false,
-} satisfies OxfmtConfig;
+};
 
 export { fmt as default };
