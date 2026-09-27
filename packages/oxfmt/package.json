@@ -1,6 +1,6 @@
 {
   "name": "@qntx/oxfmt",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Shareable Oxfmt config for Vite+ apps and TypeScript libraries",
   "keywords": [
     "format",
@@ -48,7 +48,7 @@
     "vite-plus": "catalog:"
   },
   "peerDependencies": {
-    "oxfmt": "^0.66.0"
+    "oxfmt": ">=0.66.0 <1.0.0"
   },
   "peerDependenciesMeta": {
     "oxfmt": {
