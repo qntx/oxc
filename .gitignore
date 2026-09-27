@@ -13,3 +13,6 @@ coverage
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+# tsgo declaration-check artifacts emitted beside sources by vp check --fix
+packages/*/src/*.d.ts

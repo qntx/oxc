@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
+import type { OxlintOverride } from "oxlint";
+
 import { config } from "./src/config.ts";
 import { merge } from "./src/merge.ts";
 import { react } from "./src/react.ts";
@@ -27,6 +29,16 @@ describe("merge", () => {
     );
     expect(config.overrides).toHaveLength(3);
     expect(react.overrides).toHaveLength(4);
+  });
+
+  // Verifies the common consumer shape: appending a typed OxlintOverride to the
+  // base preset's overrides.
+  test("base config merges an appended override", () => {
+    const patch: OxlintOverride = { files: ["x/**"], rules: { "eslint/no-console": "off" } };
+    const merged = merge(config, { overrides: [patch] });
+    // `config` ships exactly 3 overrides (asserted in "react includes core plugins").
+    expect(merged.overrides).toHaveLength(4);
+    expect(merged.overrides?.at(-1)).toEqual(patch);
   });
 
   test("jsPlugins later-wins by name", () => {
