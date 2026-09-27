@@ -71,14 +71,18 @@ async function lintCodes(source: string): Promise<string[]> {
 }
 
 test("printer-owned rules stay off; newline-after-import stays error", () => {
-  expect(config.rules["eslint/sort-imports"]).toBe("off");
-  expect(config.rules["unicorn/empty-brace-spaces"]).toBe("off");
-  expect(config.rules["unicorn/no-nested-ternary"]).toBe("off");
-  expect(config.rules["unicorn/number-literal-case"]).toBe("off");
-  expect(config.rules["import/newline-after-import"]).toBe("error");
-  expect(config.rules["eslint/one-var"]).toBe("off");
-  expect(config.rules["eslint/max-lines"]).toBe("off");
-  expect(config.rules["import/no-default-export"]).toBe("off");
+  expect(config.rules).toEqual(
+    expect.objectContaining({
+      "eslint/sort-imports": "off",
+      "unicorn/empty-brace-spaces": "off",
+      "unicorn/no-nested-ternary": "off",
+      "unicorn/number-literal-case": "off",
+      "import/newline-after-import": "error",
+      "eslint/one-var": "off",
+      "eslint/max-lines": "off",
+      "import/no-default-export": "off",
+    }),
+  );
 });
 
 test("oxlint does not report empty-brace-spaces on {} / function f() {}", async () => {

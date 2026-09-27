@@ -3,7 +3,7 @@ import type { OxlintConfig } from "oxlint";
 import { config } from "./config.ts";
 import { merge } from "./merge.ts";
 
-const overlay = {
+const overlay: OxlintConfig = {
   plugins: ["jsx-a11y", "react", "react-perf"],
   rules: {
     "jsx-a11y/alt-text": "error",
@@ -182,6 +182,6 @@ const overlay = {
       },
     },
   ],
-} satisfies OxlintConfig;
+};
 
-export const react = merge(config, overlay);
+export const react: OxlintConfig = merge(config, overlay);

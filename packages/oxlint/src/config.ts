@@ -1,6 +1,18 @@
 import type { OxlintConfig } from "oxlint";
 
-export const config = {
+/**
+ * The base preset. Every key shown is always present, so consumers can spread
+ * `config.ignorePatterns`/`config.overrides` without narrowing — the bare {@link OxlintConfig}
+ * fields are all optional and `satisfies` would leak `prop?: undefined` members that
+ * `exactOptionalPropertyTypes` rejects in `merge`.
+ */
+export const config: OxlintConfig &
+  Required<
+    Pick<
+      OxlintConfig,
+      "plugins" | "env" | "options" | "settings" | "ignorePatterns" | "rules" | "overrides"
+    >
+  > = {
   plugins: ["eslint", "import", "node", "oxc", "promise", "typescript", "unicorn", "vitest"],
   env: {
     browser: true,
@@ -813,4 +825,4 @@ export const config = {
       },
     },
   ],
-} satisfies OxlintConfig;
+};

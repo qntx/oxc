@@ -8,6 +8,8 @@
     "resolveJsonModule": true,
     "types": ["bun", "node"],
     "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedDeclarations": true,
     "noUnusedLocals": true,
     "declaration": true,
     "noEmit": true,

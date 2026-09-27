@@ -2,7 +2,17 @@ import type { ExternalPluginEntry, OxlintConfig } from "oxlint";
 
 const REPLACE_IF_EMPTY = new Set(["ignorePatterns", "plugins", "jsPlugins", "overrides"]);
 
-export function merge(...parts: Array<OxlintConfig | undefined>): OxlintConfig {
+/**
+ * An {@link OxlintConfig} whose property values may be `undefined` or `null` — merging such a value
+ * deletes the key. `exactOptionalPropertyTypes` consumers need the explicit `| undefined` here to
+ * express that contract.
+ */
+type MergeInput = {
+  // oxlint-disable-next-line typescript/no-restricted-types -- merging a null value deletes the key, mirroring how null travels through .oxlintrc.json
+  [K in keyof OxlintConfig]?: OxlintConfig[K] | null | undefined;
+};
+
+export function merge(...parts: Array<MergeInput | undefined>): OxlintConfig {
   const out: OxlintConfig = {};
 
   for (const part of parts) {
