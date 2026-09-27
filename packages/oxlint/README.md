@@ -4,7 +4,7 @@ Shareable [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) config for Vite+
 
 Clippy-mapped strictness: type safety and correctness fail the build (`any`, `!`, unsafe, floating promises, React Compiler). Tests relax like `allow-unwrap-in-tests`. Formatting is [`@qntx/oxfmt`](https://www.npmjs.com/package/@qntx/oxfmt), not lint.
 
-Requires **oxlint 1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ consumers who do not override still run 1.81.0 (1.82 added no new rule ids).
+Requires **oxlint ^1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ 0.3.2 and later already satisfy the peer (0.3.3 nests 1.83.0).
 
 ## Install
 

@@ -9,7 +9,7 @@ Compose in one `vite.config.ts`. Do not use Oxlint `extends` (it merges only `ru
 
 The sibling repo [`qntx/oxfmt`](https://github.com/qntx/oxfmt) is a Vite+ starter. `@qntx/oxfmt` lives here.
 
-Requires **oxlint 1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ consumers who do not override still run 1.81.0 (1.82 added no new rule ids).
+Requires **oxlint ^1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ 0.3.2 and later already satisfy the peer (0.3.3 nests 1.83.0). `@qntx/oxfmt` accepts oxfmt `>=0.66.0 <1.0.0`.
 
 ## Install
 

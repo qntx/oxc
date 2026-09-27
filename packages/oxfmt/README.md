@@ -12,7 +12,7 @@ This is the `@qntx/oxfmt` product. The sibling GitHub repo `qntx/oxfmt` is a Vit
 bun add -d @qntx/oxlint @qntx/oxfmt
 ```
 
-Do **not** add `oxfmt` to a Vite+ app. `vp fmt` already nests it.
+Do **not** add `oxfmt` to a Vite+ app. `vp fmt` already nests it. The peer range is `>=0.66.0 <1.0.0`; Vite+ 0.3.1 nests 0.66.0, and later releases nest a newer 0.x inside that range.
 
 ## Recipes
 

@@ -509,7 +509,7 @@ export const config = {
     "unicorn/no-magic-array-flat-depth": "error",
     "unicorn/no-negated-condition": "error",
     "unicorn/no-negation-in-equality-check": "error",
-    "unicorn/no-nested-ternary": "error",
+    "unicorn/no-nested-ternary": "off", // oxfmt strips parens from `a ? b : (c ? d : e)`
     "unicorn/no-new-array": "error",
     "unicorn/no-new-buffer": "error",
     "unicorn/no-null": "off",
@@ -535,7 +535,7 @@ export const config = {
     "unicorn/no-useless-switch-case": "error",
     "unicorn/no-useless-undefined": "off",
     "unicorn/no-zero-fractions": "error",
-    "unicorn/number-literal-case": "error",
+    "unicorn/number-literal-case": "off", // oxfmt prints `0xff` / `0xabcdn`
     "unicorn/numeric-separators-style": ["error", { onlyIfContainsSeparator: true }],
     "unicorn/prefer-add-event-listener": "error",
     "unicorn/prefer-array-find": "error",
