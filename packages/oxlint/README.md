@@ -29,7 +29,9 @@ export default defineConfig({
 });
 ```
 
-`react` already includes the core TypeScript/ESLint/Vitest table plus native `react` / `jsx-a11y` / `react-perf`.
+`react` already includes the core TypeScript/ESLint/Vitest table plus native `react` / `jsx-a11y`.
+
+`react` assumes the project is compiled by React Compiler: it enables the native compiler rules, forbids `useMemo` / `useCallback` / `memo` (named, namespace, and `React.*` access), and turns off rules that only push toward manual memoization. Setting your own `eslint/no-restricted-imports` or `eslint/no-restricted-properties` replaces the preset entry, so copy its `react` entry into yours.
 
 ### TypeScript library
 

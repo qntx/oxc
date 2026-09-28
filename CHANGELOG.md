@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-28
+
+### Added
+
+- `@qntx/oxlint` `react` forbids manual memoization: `eslint/no-restricted-imports` rejects `useMemo`, `useCallback`, and `memo` imports from `react` (named imports, re-exports, and namespace imports — `import * as React` is rejected by `importNames` semantics; type imports stay allowed), and `eslint/no-restricted-properties` closes the `React.useMemo` / `React.useCallback` / `React.memo` default-import path. Both print the compiler-era alternatives (`useState(create)`, `useEffectEvent`, plain render expressions). The ban applies in test files too. (#7)
+
+### Changed
+
+- `@qntx/oxlint` `react` turns off `react/jsx-no-constructed-context-values` — React Compiler already memoizes context values built in render, and the rule's only fix is a manual `useMemo`. (#7)
+- `@qntx/oxlint` `react` turns off `react/hook-use-state` — it reports the `const [value] = useState(create)` once-per-mount idiom with no option to allow it (Rel1cx/eslint-react#1352). (#7)
+- `@qntx/oxlint` `react` drops the `react-perf` plugin — its last enabled rule (`jsx-no-new-array-as-prop`) targeted exactly what the compiler memoizes, so all four rules would be `off`. (#7)
+
 ## [1.0.4] - 2026-09-27
 
 ### Fixed
@@ -51,7 +63,8 @@ First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
 - XOR: `eslint/sort-imports` off, `unicorn/empty-brace-spaces` off. `import/newline-after-import` stays `error`.
 - The sibling `qntx/oxfmt` starter is superseded by `packages/oxfmt`.
 
-[Unreleased]: https://github.com/qntx/oxc/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/qntx/oxc/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/qntx/oxc/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/qntx/oxc/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/qntx/oxc/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/qntx/oxc/compare/v1.0.1...v1.0.2
