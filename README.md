@@ -66,7 +66,7 @@ export default defineConfig({
 });
 ```
 
-Drop default ignore patterns with `{ ignorePatterns: undefined }`. Replace them with `{ ignorePatterns: [] }` then set a new list. `fmt` is a flat object; spread is enough.
+Drop default ignore patterns with `{ ignorePatterns: undefined }`. Replace them with `{ ignorePatterns: [] }` then set a new list. Top-level `fmt` keys override with spread; nested object settings (`sortImports` and friends) extend by spreading the nested object — see the `@qntx/oxfmt` README.
 
 ### CLI
 

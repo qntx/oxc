@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-28
+
+### Fixed
+
+- `@qntx/oxfmt` `fmt` types `sortImports`, `sortPackageJson`, and `sortTailwindcss` as the objects it ships instead of `boolean | …Config` unions; consumers extend e.g. `fmt.sortImports.internalPattern` without narrowing. The regression came from 1.0.4's `Required<OxfmtConfig>` annotation. (#9)
+
 ## [1.1.0] - 2026-09-28
 
 ### Added
@@ -63,7 +69,8 @@ First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
 - XOR: `eslint/sort-imports` off, `unicorn/empty-brace-spaces` off. `import/newline-after-import` stays `error`.
 - The sibling `qntx/oxfmt` starter is superseded by `packages/oxfmt`.
 
-[Unreleased]: https://github.com/qntx/oxc/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/qntx/oxc/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/qntx/oxc/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/qntx/oxc/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/qntx/oxc/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/qntx/oxc/compare/v1.0.2...v1.0.3
