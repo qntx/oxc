@@ -3,9 +3,31 @@ import type { OxlintConfig } from "oxlint";
 import { config } from "./config.ts";
 import { merge } from "./merge.ts";
 
+const manualMemoization =
+  "React Compiler memoizes components and hooks. Use useState(create) for once-per-mount instances, useEffectEvent for callbacks read by effects, and plain render expressions for derived values.";
+
 const overlay: OxlintConfig = {
-  plugins: ["jsx-a11y", "react", "react-perf"],
+  plugins: ["jsx-a11y", "react"],
   rules: {
+    "eslint/no-restricted-imports": [
+      "error",
+      {
+        paths: [
+          {
+            name: "react",
+            importNames: ["useMemo", "useCallback", "memo"],
+            allowTypeImports: true,
+            message: manualMemoization,
+          },
+        ],
+      },
+    ],
+    "eslint/no-restricted-properties": [
+      "error",
+      { object: "React", property: "useMemo", message: manualMemoization },
+      { object: "React", property: "useCallback", message: manualMemoization },
+      { object: "React", property: "memo", message: manualMemoization },
+    ],
     "jsx-a11y/alt-text": "error",
     "jsx-a11y/anchor-ambiguous-text": "error",
     "jsx-a11y/anchor-has-content": "error",
@@ -42,10 +64,6 @@ const overlay: OxlintConfig = {
     "jsx-a11y/role-supports-aria-props": "error",
     "jsx-a11y/scope": "error",
     "jsx-a11y/tabindex-no-positive": "error",
-    "react-perf/jsx-no-jsx-as-prop": "off",
-    "react-perf/jsx-no-new-array-as-prop": "error",
-    "react-perf/jsx-no-new-function-as-prop": "off",
-    "react-perf/jsx-no-new-object-as-prop": "off",
     "react/button-has-type": "error",
     "react/checked-requires-onchange-or-readonly": "error",
     "react/display-name": "off",
@@ -55,7 +73,7 @@ const overlay: OxlintConfig = {
     "react/forbid-elements": "off",
     "react/forward-ref-uses-ref": "off",
     "react/function-component-definition": "off",
-    "react/hook-use-state": "error",
+    "react/hook-use-state": "off",
     "react/iframe-missing-sandbox": "error",
     "react/jsx-boolean-value": "error",
     "react/jsx-curly-brace-presence": [
@@ -72,7 +90,7 @@ const overlay: OxlintConfig = {
     "react/jsx-key": "error",
     "react/jsx-max-depth": "off",
     "react/jsx-no-comment-textnodes": "error",
-    "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-constructed-context-values": "off",
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-no-literals": "off",
     "react/jsx-no-script-url": "error",
@@ -169,7 +187,6 @@ const overlay: OxlintConfig = {
         "jsx-a11y/prefer-tag-over-role": "off",
         "jsx-a11y/scope": "off",
         "jsx-a11y/tabindex-no-positive": "off",
-        "react-perf/jsx-no-new-array-as-prop": "off",
         "react/button-has-type": "off",
         "react/checked-requires-onchange-or-readonly": "off",
         "react/jsx-no-target-blank": "off",

@@ -25,8 +25,9 @@ describe("merge", () => {
 
   test("react includes core plugins", () => {
     expect(react.plugins).toEqual(
-      expect.arrayContaining(["eslint", "typescript", "jsx-a11y", "react", "react-perf"]),
+      expect.arrayContaining(["eslint", "typescript", "jsx-a11y", "react"]),
     );
+    expect(react.plugins).not.toContain("react-perf");
     expect(config.overrides).toHaveLength(3);
     expect(react.overrides).toHaveLength(4);
   });
