@@ -1,6 +1,49 @@
-import type { OxfmtConfig } from "oxfmt";
+import type {
+  OxfmtConfig,
+  SortImportsConfig,
+  SortPackageJsonConfig,
+  SortTailwindcssConfig,
+} from "oxfmt";
 
-export const fmt: Required<OxfmtConfig> = {
+type FmtObjects = {
+  sortImports: SortImportsConfig &
+    Required<
+      Pick<
+        SortImportsConfig,
+        | "customGroups"
+        | "ignoreCase"
+        | "internalPattern"
+        | "newlinesBetween"
+        | "order"
+        | "partitionByComment"
+        | "partitionByNewline"
+        | "sortSideEffects"
+      >
+    >;
+  sortPackageJson: SortPackageJsonConfig & Required<Pick<SortPackageJsonConfig, "sortScripts">>;
+  sortTailwindcss: SortTailwindcssConfig &
+    Required<
+      Pick<
+        SortTailwindcssConfig,
+        "attributes" | "functions" | "preserveDuplicates" | "preserveWhitespace"
+      >
+    >;
+};
+
+type Fmt = {
+  [K in keyof Required<OxfmtConfig>]: K extends keyof FmtObjects
+    ? FmtObjects[K]
+    : Required<OxfmtConfig>[K];
+};
+
+/**
+ * Every Oxfmtrc key is present (`Required`), and the object-valued settings are typed as the
+ * objects the preset ships, so consumers extend them (e.g. `fmt.sortImports.internalPattern`)
+ * without narrowing the `boolean | …Config` unions. Nested keys are `Pick`ed rather than `Required`
+ * because the declaration resolves against the consumer's oxfmt version, and `groups` is left to
+ * the library default.
+ */
+export const fmt: Fmt = {
   arrowParens: "always",
   bracketSameLine: false,
   bracketSpacing: true,

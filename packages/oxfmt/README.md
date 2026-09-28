@@ -31,6 +31,18 @@ export default defineConfig({
 
 Library: `{ lint: config, fmt }`. Overlay with spread: `{ ...fmt, printWidth: 120 }`.
 
+Extend object-valued settings (`sortImports`, `sortPackageJson`, `sortTailwindcss`) by spreading the nested object — they are typed as the objects the preset ships, so no narrowing is needed:
+
+```ts
+export default {
+  ...fmt,
+  sortImports: {
+    ...fmt.sortImports,
+    internalPattern: [...fmt.sortImports.internalPattern, "@app/"],
+  },
+};
+```
+
 ### CLI
 
 ```ts
