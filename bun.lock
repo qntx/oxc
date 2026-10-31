@@ -33,13 +33,13 @@
         "@types/bun": "latest",
         "@types/node": "^26.6.5",
         "oxlint": "1.82.0",
-        "oxlint-tsgolint": ">=7.0.2004",
+        "oxlint-tsgolint": ">=7.0.2005",
         "typescript": "^7.0.2",
         "vite-plus": "catalog:",
       },
       "peerDependencies": {
         "oxlint": "^1.82.0",
-        "oxlint-tsgolint": ">=7.0.2004",
+        "oxlint-tsgolint": ">=7.0.2005",
       },
       "optionalPeers": [
         "oxlint",
