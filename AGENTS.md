@@ -14,3 +14,25 @@
 - Source of truth: `oxlint --rules --format=json`. Skip `category === "nursery"`.
 - Do not use root `categories`.
 - Type-safety and correctness rules stay `error`. Do not weaken `no-explicit-any`, `no-non-null-assertion`, `strict-boolean-expressions`, or `no-unsafe-*` on production files. Test overlays may relax them the way Clippy allows unwrap in tests.
+
+## Invariants
+
+- Toolchain alignment: the `oxlint`, `oxfmt`, and `oxlint-tsgolint` devDependencies equal the exact versions `vite-plus` pins, and the peer floors equal them. `tests/versions.test.ts` enforces this; Dependabot ignores them. Bump them only together with a `vite-plus` bump, then re-run the inventory tests.
+- XOR: lint never owns what oxfmt prints — printer-owned rules stay `off`. `tests/xor.test.ts` enforces this.
+- Dependency policy: `devDependencies` are exact-pinned (`bunfig.toml` `exact = true`).
+
+## Commands
+
+- `bun install`: install dependencies.
+- `bun run ready`: the full gate — `vp check` (format + lint + type-aware), per-package typecheck plus root `tsc --noEmit`, `vp run -r build`, and `vp run -r test` plus root `vp test`.
+- `bun run format`: `vp check --fix`.
+- `bun run release`: `bumpp` (see below).
+
+## Release
+
+- `bumpp` bumps `packages/oxlint` and `packages/oxfmt` in lockstep, refreshes `bun.lock`, and opens a `release/v<version>` pull request (main is protected).
+- After the release PR merges, tag the merge commit `v*.*.*` by hand — one tag publishes both packages to npm and creates the GitHub Release.
+
+## Docs
+
+`docs/` is local-only and is never pushed: the whole directory is gitignored except `docs/index.mdx` and `docs/meta.json`; never commit any other file under `docs/`.

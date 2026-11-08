@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   oxlint:
-    uses: qntx/workflows/.github/workflows/publish-npm.yml@v2
+    uses: qntx/workflows/.github/workflows/publish-npm.yml@b1a930e790044f34f06bd5e1e0ede9e7dd5fa122 # v2.13.1
     permissions:
       contents: read
       id-token: write
@@ -21,7 +21,7 @@ jobs:
       working-directory: packages/oxlint
 
   oxfmt:
-    uses: qntx/workflows/.github/workflows/publish-npm.yml@v2
+    uses: qntx/workflows/.github/workflows/publish-npm.yml@b1a930e790044f34f06bd5e1e0ede9e7dd5fa122 # v2.13.1
     permissions:
       contents: read
       id-token: write

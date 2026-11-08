@@ -1,10 +1,8 @@
+<!-- markdownlint-disable MD033 MD041 -->
+
 # @qntx/oxfmt
 
-Shareable [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) config for Vite+ apps and TypeScript libraries.
-
-`printWidth: 100`, double quotes, semicolons, `sortImports` on. Formatting lives here; lint does not own style.
-
-This is the `@qntx/oxfmt` product. The sibling GitHub repo `qntx/oxfmt` is a Vite+ starter and is superseded.
+Shareable [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) config for Vite+ apps and TypeScript libraries. `printWidth: 100`, double quotes, semicolons, `sortImports` on. Formatting lives here; lint does not own style. `**/bun.lock` is ignored — bun rewrites it.
 
 ## Install
 
@@ -12,16 +10,17 @@ This is the `@qntx/oxfmt` product. The sibling GitHub repo `qntx/oxfmt` is a Vit
 bun add -d @qntx/oxlint @qntx/oxfmt
 ```
 
-Do **not** add `oxfmt` to a Vite+ app. `vp fmt` already nests it. The peer range is `>=0.66.0 <1.0.0`; Vite+ 0.3.1 nests 0.66.0, and later releases nest a newer 0.x inside that range.
+Do **not** add `oxfmt` to a Vite+ app — `vp` already nests it. Requires Vite+ 1.4.0 or later (oxfmt `>=0.74.0 <1.0.0`).
 
-## Recipes
+## Usage
 
 ### Vite+ React
 
 ```ts
 import { defineConfig } from "vite-plus";
-import { react } from "@qntx/oxlint";
+
 import { fmt } from "@qntx/oxfmt";
+import { react } from "@qntx/oxlint";
 
 export default defineConfig({
   lint: react,
@@ -46,12 +45,15 @@ export default {
 ### CLI
 
 ```ts
+// oxfmt.config.ts
 export { fmt as default } from "@qntx/oxfmt";
 ```
 
+Vite+ projects should put format in `vite.config.ts`, not `oxfmt.config.ts`.
+
 ## License
 
-MIT © [QuantX](https://qntx.org)
+Licensed under the MIT License ([LICENSE](LICENSE) or <https://opensource.org/licenses/MIT>).
 
 ---
 

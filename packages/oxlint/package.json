@@ -37,22 +37,20 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "test": "bun test",
-    "check": "vp check",
+    "test": "vp test",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "vp run build"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/node": "^26.6.6",
-    "oxlint": "1.82.0",
-    "oxlint-tsgolint": ">=7.0.2005",
-    "typescript": "^7.0.2",
-    "vite-plus": "catalog:"
+    "@types/node": "26.6.6",
+    "oxlint": "1.89.0",
+    "oxlint-tsgolint": "7.0.2004",
+    "typescript": "7.0.2",
+    "vite-plus": "1.4.0"
   },
   "peerDependencies": {
-    "oxlint": "^1.82.0",
-    "oxlint-tsgolint": ">=7.0.2005"
+    "oxlint": "^1.89.0",
+    "oxlint-tsgolint": ">=7.0.2004"
   },
   "peerDependenciesMeta": {
     "oxlint": {

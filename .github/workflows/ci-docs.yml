@@ -1,4 +1,4 @@
-# Caller owns on:. Pin at @v2.
+# Caller owns on:. Pinned by commit SHA; Dependabot bumps it.
 # Do not set jobs.docs.name: the required check is docs / ci.
 name: Docs
 
@@ -13,6 +13,6 @@ permissions:
 
 jobs:
   docs:
-    uses: qntx/workflows/.github/workflows/ci-docs.yml@v2
+    uses: qntx/workflows/.github/workflows/ci-docs.yml@b1a930e790044f34f06bd5e1e0ede9e7dd5fa122 # v2.13.1
     permissions:
       contents: read

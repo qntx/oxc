@@ -1,14 +1,15 @@
-import type { OxlintConfig } from "oxlint";
-
 import { config } from "./config.ts";
-import { merge } from "./merge.ts";
+import type { Preset } from "./config.ts";
 
 const manualMemoization =
   "React Compiler memoizes components and hooks. Use useState(create) for once-per-mount instances, useEffectEvent for callbacks read by effects, and plain render expressions for derived values.";
 
-const overlay: OxlintConfig = {
-  plugins: ["jsx-a11y", "react"],
+/** The base preset plus the native `react` / `jsx-a11y` tables. */
+export const react: Preset = {
+  ...config,
+  plugins: [...config.plugins, "jsx-a11y", "react"],
   rules: {
+    ...config.rules,
     "eslint/no-restricted-imports": [
       "error",
       {
@@ -65,16 +66,24 @@ const overlay: OxlintConfig = {
     "jsx-a11y/scope": "error",
     "jsx-a11y/tabindex-no-positive": "error",
     "react/button-has-type": "error",
+    "react/capitalized-calls": "error",
     "react/checked-requires-onchange-or-readonly": "error",
     "react/display-name": "off",
+    "react/error-boundaries": "error",
     "react/exhaustive-deps": "error",
+    "react/exhaustive-effect-dependencies": "error",
     "react/forbid-component-props": "off",
     "react/forbid-dom-props": "off",
     "react/forbid-elements": "off",
     "react/forward-ref-uses-ref": "off",
     "react/function-component-definition": "off",
+    "react/globals": "error",
     "react/hook-use-state": "off",
+    "react/hooks": "error",
     "react/iframe-missing-sandbox": "error",
+    "react/immutability": "error",
+    "react/incompatible-library": "error",
+    "react/invariant": "error",
     "react/jsx-boolean-value": "error",
     "react/jsx-curly-brace-presence": [
       "error",
@@ -100,11 +109,13 @@ const overlay: OxlintConfig = {
     "react/jsx-pascal-case": "error",
     "react/jsx-props-no-spread-multi": "error",
     "react/jsx-props-no-spreading": "off",
+    "react/memo-dependencies": "error",
     "react/no-array-index-key": "error",
     "react/no-children-prop": "error",
     "react/no-clone-element": "off",
     "react/no-danger": "error",
     "react/no-danger-with-children": "error",
+    "react/no-deriving-state-in-effects": "error",
     "react/no-did-mount-set-state": "off",
     "react/no-did-update-set-state": "off",
     "react/no-direct-mutation-state": "off",
@@ -127,37 +138,28 @@ const overlay: OxlintConfig = {
     "react/only-export-components": "error",
     "react/prefer-es6-class": "off",
     "react/prefer-function-component": "off",
-    "react/capitalized-calls": "error",
-    "react/error-boundaries": "error",
-    "react/exhaustive-effect-dependencies": "error",
-    "react/globals": "error",
-    "react/hooks": "error",
-    "react/immutability": "error",
-    "react/incompatible-library": "error",
-    "react/invariant": "error",
-    "react/memo-dependencies": "error",
-    "react/no-deriving-state-in-effects": "error",
     "react/preserve-manual-memoization": "error",
     "react/purity": "error",
+    "react/react-in-jsx-scope": "off",
     "react/refs": "error",
+    "react/require-render-return": "off",
     "react/rule-suppression": "error",
+    "react/rules-of-hooks": "error",
+    "react/self-closing-comp": "error",
     "react/set-state-in-effect": "error",
     "react/set-state-in-render": "error",
+    "react/state-in-constructor": "off",
     "react/static-components": "error",
+    "react/style-prop-object": "error",
     "react/syntax": "error",
     "react/todo": "off",
     "react/unsupported-syntax": "error",
     "react/use-memo": "error",
-    "react/void-use-memo": "error",
-    "react/react-in-jsx-scope": "off",
-    "react/require-render-return": "off",
-    "react/rules-of-hooks": "error",
-    "react/self-closing-comp": "error",
-    "react/state-in-constructor": "off",
-    "react/style-prop-object": "error",
     "react/void-dom-elements-no-children": "error",
+    "react/void-use-memo": "error",
   },
   overrides: [
+    ...config.overrides,
     {
       files: ["**/*.test.{js,jsx,ts,tsx,cjs,cts,mjs,mts}", "**/*.test-d.{ts,cts,mts}"],
       excludeFiles: ["**/e2e/**"],
@@ -166,7 +168,6 @@ const overlay: OxlintConfig = {
         "jsx-a11y/anchor-ambiguous-text": "off",
         "jsx-a11y/anchor-has-content": "off",
         "jsx-a11y/anchor-is-valid": "off",
-        "jsx-a11y/click-events-have-key-events": "error",
         "jsx-a11y/control-has-associated-label": "off",
         "jsx-a11y/heading-has-content": "off",
         "jsx-a11y/html-has-lang": "off",
@@ -174,12 +175,10 @@ const overlay: OxlintConfig = {
         "jsx-a11y/interactive-supports-focus": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "jsx-a11y/lang": "off",
-        "jsx-a11y/mouse-events-have-key-events": "error",
         "jsx-a11y/no-access-key": "off",
         "jsx-a11y/no-autofocus": "off",
         "jsx-a11y/no-distracting-elements": "off",
         "jsx-a11y/no-interactive-element-to-noninteractive-role": "off",
-        "jsx-a11y/no-noninteractive-element-interactions": "error",
         "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
         "jsx-a11y/no-noninteractive-tabindex": "off",
         "jsx-a11y/no-redundant-roles": "off",
@@ -195,10 +194,7 @@ const overlay: OxlintConfig = {
         "react/no-children-prop": "off",
         "react/no-danger": "off",
         "react/no-object-type-as-default-prop": "off",
-        "react/no-unstable-nested-components": "error",
       },
     },
   ],
 };
-
-export const react: OxlintConfig = merge(config, overlay);

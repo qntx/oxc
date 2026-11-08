@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- BREAKING: `@qntx/oxlint` now requires oxlint `^1.89.0` and oxlint-tsgolint `>=7.0.2004`, and `@qntx/oxfmt` requires oxfmt `>=0.74.0 <1.0.0` — i.e. Vite+ 1.4.0 or later. The old `oxlint-tsgolint` floor `>=7.0.2005` excluded the `7.0.2004` Vite+ 1.4.0 nests.
+- `@qntx/oxlint` turns off the `eslint/*` duplicates of the type-aware `typescript/*` and tsc-owned checks: `no-implied-eval`, `no-throw-literal`, and `prefer-promise-reject-errors` (type-aware supersets exist), plus `getter-return`, `no-unsafe-negation`, and `no-with` (tsc owns them under `options.typeCheck`).
+- `@qntx/oxlint` `import/no-unassigned-import` allows `**/*.css` — Vite apps import stylesheets for side effects.
+- `@qntx/oxfmt` ignores `**/bun.lock` — bun rewrites it.
+- `@qntx/oxlint` `react` is typed like `config` — every preset key is always present, so consumers spread `react.overrides`/`react.rules` without narrowing.
+
+### Added
+
+- `@qntx/oxlint` enables `typescript/no-generated-empty-object-type` (new in oxlint 1.89) and `eslint/no-irregular-whitespace`.
+- `@qntx/oxfmt` sets the oxfmt 0.74 keys `associations: []` and `astro: false` — every Oxfmtrc key stays explicit.
+
+### Removed
+
+- `@qntx/oxlint` `react` test override no longer restates base `error` values (`jsx-a11y/click-events-have-key-events`, `jsx-a11y/mouse-events-have-key-events`, `jsx-a11y/no-noninteractive-element-interactions`, `react/no-unstable-nested-components`); behavior is unchanged.
+
 ## [1.1.1] - 2026-09-28
 
 ### Fixed

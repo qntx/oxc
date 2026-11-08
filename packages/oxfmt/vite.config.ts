@@ -1,11 +1,11 @@
 import { defineConfig } from "vite-plus";
 import type { UserConfig } from "vite-plus";
 
-const viteConfig: UserConfig = defineConfig({
+const config: UserConfig = defineConfig({
   pack: {
-    dts: { generator: "tsgo" },
+    dts: { tsgo: {} },
     exports: true,
   },
 });
 
-export default viteConfig;
+export default config;

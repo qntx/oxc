@@ -1,8 +1,7 @@
-import { expect, test } from "bun:test";
-
 import type { OxfmtConfig } from "oxfmt";
+import { expect, test } from "vite-plus/test";
 
-import { fmt } from "./src/index.ts";
+import { fmt } from "../src/index.ts";
 
 test("object-valued settings extend without narrowing", () => {
   const extended: OxfmtConfig = {

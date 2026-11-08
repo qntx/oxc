@@ -1,18 +1,21 @@
 import type { OxlintConfig } from "oxlint";
 
 /**
- * The base preset. Every key shown is always present, so consumers can spread
- * `config.ignorePatterns`/`config.overrides` without narrowing — the bare {@link OxlintConfig}
+ * An {@link OxlintConfig} whose preset keys are always present, so consumers can spread
+ * `preset.ignorePatterns`/`preset.overrides` without narrowing — the bare {@link OxlintConfig}
  * fields are all optional and `satisfies` would leak `prop?: undefined` members that
  * `exactOptionalPropertyTypes` rejects in `merge`.
  */
-export const config: OxlintConfig &
+export type Preset = OxlintConfig &
   Required<
     Pick<
       OxlintConfig,
       "plugins" | "env" | "options" | "settings" | "ignorePatterns" | "rules" | "overrides"
     >
-  > = {
+  >;
+
+/** The base preset. */
+export const config: Preset = {
   plugins: ["eslint", "import", "node", "oxc", "promise", "typescript", "unicorn", "vitest"],
   env: {
     browser: true,
@@ -53,7 +56,7 @@ export const config: OxlintConfig &
     "eslint/func-name-matching": ["error", "never", { considerPropertyDescriptor: true }],
     "eslint/func-names": "off",
     "eslint/func-style": ["error", "declaration", { allowArrowFunctions: true }],
-    "eslint/getter-return": "error",
+    "eslint/getter-return": "off",
     "eslint/grouped-accessor-pairs": ["error", "getBeforeSet"],
     "eslint/guard-for-in": "error",
     "eslint/id-denylist": "off",
@@ -112,12 +115,12 @@ export const config: OxlintConfig &
     "eslint/no-global-assign": "error",
     "eslint/no-implicit-coercion": "error",
     "eslint/no-implicit-globals": "error",
-    "eslint/no-implied-eval": "error",
+    "eslint/no-implied-eval": "off",
     "eslint/no-import-assign": "off",
     "eslint/no-inline-comments": "off",
     "eslint/no-inner-declarations": "off",
     "eslint/no-invalid-regexp": "error",
-    "eslint/no-irregular-whitespace": "off",
+    "eslint/no-irregular-whitespace": "error",
     "eslint/no-iterator": "off",
     "eslint/no-label-var": "off",
     "eslint/no-labels": "off",
@@ -161,7 +164,7 @@ export const config: OxlintConfig &
     "eslint/no-template-curly-in-string": "error",
     "eslint/no-ternary": "off",
     "eslint/no-this-before-super": "off",
-    "eslint/no-throw-literal": "error",
+    "eslint/no-throw-literal": "off",
     "eslint/no-unassigned-vars": "error",
     "eslint/no-undef": "off",
     "eslint/no-undefined": "off",
@@ -171,7 +174,7 @@ export const config: OxlintConfig &
     "eslint/no-unneeded-ternary": "error",
     "eslint/no-unreachable": "off",
     "eslint/no-unsafe-finally": "error",
-    "eslint/no-unsafe-negation": "error",
+    "eslint/no-unsafe-negation": "off",
     "eslint/no-unsafe-optional-chaining": ["error", { disallowArithmeticOperators: true }],
     "eslint/no-unused-expressions": ["error", { enforceForJSX: true }],
     "eslint/no-unused-labels": "error",
@@ -199,7 +202,7 @@ export const config: OxlintConfig &
     "eslint/no-var": "error",
     "eslint/no-void": "off",
     "eslint/no-warning-comments": "error",
-    "eslint/no-with": "error",
+    "eslint/no-with": "off",
     "eslint/object-shorthand": ["error", "always"],
     "eslint/one-var": "off",
     "eslint/operator-assignment": ["error", "always"],
@@ -211,7 +214,7 @@ export const config: OxlintConfig &
     "eslint/prefer-numeric-literals": "off",
     "eslint/prefer-object-has-own": "error",
     "eslint/prefer-object-spread": "error",
-    "eslint/prefer-promise-reject-errors": "error",
+    "eslint/prefer-promise-reject-errors": "off",
     "eslint/prefer-regex-literals": "error",
     "eslint/prefer-rest-params": "error",
     "eslint/prefer-spread": "error",
@@ -257,7 +260,7 @@ export const config: OxlintConfig &
     "import/no-nodejs-modules": "off",
     "import/no-relative-parent-imports": "off",
     "import/no-self-import": "error",
-    "import/no-unassigned-import": "error",
+    "import/no-unassigned-import": ["error", { allow: ["**/*.css"] }],
     "import/no-webpack-loader-syntax": "off",
     "import/prefer-default-export": "off",
     "import/unambiguous": "error",
@@ -372,6 +375,7 @@ export const config: OxlintConfig &
     "typescript/no-extraneous-class": "error",
     "typescript/no-floating-promises": "error",
     "typescript/no-for-in-array": "error",
+    "typescript/no-generated-empty-object-type": "error",
     "typescript/no-implied-eval": "error",
     "typescript/no-import-type-side-effects": "error",
     "typescript/no-inferrable-types": "error",
@@ -503,7 +507,7 @@ export const config: OxlintConfig &
     "unicorn/no-array-method-this-argument": "error",
     "unicorn/no-array-reduce": "error",
     "unicorn/no-array-reverse": "error",
-    "unicorn/no-array-sort": ["error"],
+    "unicorn/no-array-sort": "error",
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
     "unicorn/no-confusing-array-with": "error",
@@ -703,6 +707,7 @@ export const config: OxlintConfig &
         "import/unambiguous": "off",
         "typescript/consistent-type-definitions": "off",
         "typescript/no-empty-object-type": "off",
+        "typescript/no-generated-empty-object-type": "off",
         "typescript/no-restricted-types": "off",
         "typescript/no-useless-empty-export": "off",
         "unicorn/require-module-specifiers": "off",
@@ -712,7 +717,6 @@ export const config: OxlintConfig &
       files: ["**/*.test.{js,jsx,ts,tsx,cjs,cts,mjs,mts}", "**/*.test-d.{ts,cts,mts}"],
       excludeFiles: ["**/e2e/**"],
       rules: {
-        "eslint/getter-return": "off",
         "eslint/no-empty-function": "off",
         "eslint/no-param-reassign": "off",
         "eslint/no-promise-executor-return": "off",
