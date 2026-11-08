@@ -14,9 +14,9 @@
   "type": "module",
   "scripts": {
     "lint": "vp check",
-    "typecheck": "vp run -r typecheck && tsc --noEmit",
+    "typecheck": "vp run --filter \"./packages/*\" typecheck && tsc --noEmit",
     "build": "vp run -r build",
-    "test": "vp run -r test && vp test",
+    "test": "vp run --filter \"./packages/*\" test && vp test",
     "ready": "bun run lint && bun run typecheck && bun run build && bun run test",
     "format": "vp check --fix",
     "release": "bumpp",
