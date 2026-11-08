@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-08
+
 ### Changed
 
 - BREAKING: `@qntx/oxlint` now requires oxlint `^1.89.0` and oxlint-tsgolint `>=7.0.2004`, and `@qntx/oxfmt` requires oxfmt `>=0.74.0 <1.0.0` — i.e. Vite+ 1.4.0 or later. The old `oxlint-tsgolint` floor `>=7.0.2005` excluded the `7.0.2004` Vite+ 1.4.0 nests.
@@ -86,7 +88,8 @@ First `@qntx/oxlint` and `@qntx/oxfmt` release. Git tag is `v1.0.0`.
 - XOR: `eslint/sort-imports` off, `unicorn/empty-brace-spaces` off. `import/newline-after-import` stays `error`.
 - The sibling `qntx/oxfmt` starter is superseded by `packages/oxfmt`.
 
-[Unreleased]: https://github.com/qntx/oxc/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/qntx/oxc/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/qntx/oxc/compare/v1.1.1...v2.0.0
 [1.1.1]: https://github.com/qntx/oxc/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/qntx/oxc/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/qntx/oxc/compare/v1.0.3...v1.0.4
