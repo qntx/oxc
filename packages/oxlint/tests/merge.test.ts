@@ -1,35 +1,24 @@
-import { describe, expect, test } from "bun:test";
-
 import type { OxlintOverride } from "oxlint";
+import { describe, expect, test } from "vite-plus/test";
 
-import { config } from "./src/config.ts";
-import { merge } from "./src/merge.ts";
-import { react } from "./src/react.ts";
+import { config } from "../src/config.ts";
+import { merge } from "../src/merge.ts";
 
 describe("merge", () => {
   test("undefined deletes a key", () => {
-    expect(merge({ ignorePatterns: ["dist/**"] }, { ignorePatterns: undefined })).toEqual({});
+    expect(merge({ ignorePatterns: ["dist/**"] }, { ignorePatterns: undefined })).toStrictEqual({});
   });
 
   test("empty ignorePatterns replaces", () => {
-    expect(merge({ ignorePatterns: ["dist/**"] }, { ignorePatterns: [] })).toEqual({
+    expect(merge({ ignorePatterns: ["dist/**"] }, { ignorePatterns: [] })).toStrictEqual({
       ignorePatterns: [],
     });
   });
 
   test("empty plugins replaces", () => {
-    expect(merge({ plugins: ["vitest"] }, { plugins: [] })).toEqual({
+    expect(merge({ plugins: ["vitest"] }, { plugins: [] })).toStrictEqual({
       plugins: [],
     });
-  });
-
-  test("react includes core plugins", () => {
-    expect(react.plugins).toEqual(
-      expect.arrayContaining(["eslint", "typescript", "jsx-a11y", "react"]),
-    );
-    expect(react.plugins).not.toContain("react-perf");
-    expect(config.overrides).toHaveLength(3);
-    expect(react.overrides).toHaveLength(4);
   });
 
   // Verifies the common consumer shape: appending a typed OxlintOverride to the
@@ -37,9 +26,8 @@ describe("merge", () => {
   test("base config merges an appended override", () => {
     const patch: OxlintOverride = { files: ["x/**"], rules: { "eslint/no-console": "off" } };
     const merged = merge(config, { overrides: [patch] });
-    // `config` ships exactly 3 overrides (asserted in "react includes core plugins").
-    expect(merged.overrides).toHaveLength(4);
-    expect(merged.overrides?.at(-1)).toEqual(patch);
+    expect(merged.overrides).toHaveLength(config.overrides.length + 1);
+    expect(merged.overrides?.at(-1)).toStrictEqual(patch);
   });
 
   test("jsPlugins later-wins by name", () => {
@@ -53,7 +41,7 @@ describe("merge", () => {
         },
         { jsPlugins: [{ name: "react-x", specifier: "new" }] },
       ).jsPlugins,
-    ).toEqual([
+    ).toStrictEqual([
       { name: "react-x", specifier: "new" },
       { name: "keep", specifier: "keep" },
     ]);

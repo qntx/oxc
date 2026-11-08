@@ -73,24 +73,8 @@ export function merge(...parts: Array<MergeInput | undefined>): OxlintConfig {
   return out;
 }
 
-function uniqueConcat(left: unknown[], right: unknown[]): unknown[] {
-  const seen = new Set<unknown>();
-  const result: unknown[] = [];
-
-  for (const item of [...copyUnknownArray(left), ...copyUnknownArray(right)]) {
-    if (seen.has(item)) {
-      continue;
-    }
-
-    seen.add(item);
-    result.push(item);
-  }
-
-  return result;
-}
-
-function copyUnknownArray(value: unknown[]): unknown[] {
-  return value.map((item: unknown) => item);
+function uniqueConcat(left: ReadonlyArray<unknown>, right: ReadonlyArray<unknown>): unknown[] {
+  return [...new Set([...left, ...right])];
 }
 
 function assign(out: OxlintConfig, key: string, value: unknown): void {
@@ -106,8 +90,12 @@ function pluginEntries(value: unknown[]): ExternalPluginEntry[] {
       continue;
     }
 
-    if (isPlain(item) && typeof item.name === "string" && typeof item.specifier === "string") {
-      entries.push({ name: item.name, specifier: item.specifier });
+    if (
+      isPlain(item) &&
+      typeof item["name"] === "string" &&
+      typeof item["specifier"] === "string"
+    ) {
+      entries.push({ name: item["name"], specifier: item["specifier"] });
     }
   }
 

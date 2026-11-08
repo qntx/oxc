@@ -45,6 +45,8 @@ type Fmt = {
  */
 export const fmt: Fmt = {
   arrowParens: "always",
+  associations: [],
+  astro: false,
   bracketSameLine: false,
   bracketSpacing: true,
   embeddedLanguageFormatting: "auto",
@@ -54,6 +56,7 @@ export const fmt: Fmt = {
   ignorePatterns: [
     "**/.vite-hooks/**",
     "**/build/**",
+    "**/bun.lock", // bun owns its lockfile format
     "**/coverage/**",
     "**/dist/**",
     "**/node_modules/**",

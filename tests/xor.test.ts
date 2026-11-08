@@ -1,20 +1,19 @@
-import { expect, test } from "bun:test";
-import { mkdtemp, writeFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 
-import { fmt } from "../oxfmt/src/index.ts";
-import { config } from "./src/config.ts";
+import { expect, test } from "vite-plus/test";
 
-// Resolved from @qntx/oxfmt, which declares the oxfmt dependency. This package does not.
-const requireOxfmt = createRequire(
-  fileURLToPath(new URL("../oxfmt/package.json", import.meta.url)),
-);
+import { fmt } from "../packages/oxfmt/src/index.ts";
+import { config } from "../packages/oxlint/src/index.ts";
+
+const requireOxlint = createRequire(new URL("../packages/oxlint/package.json", import.meta.url));
+const requireOxfmt = createRequire(new URL("../packages/oxfmt/package.json", import.meta.url));
 
 function oxlintCli(): string {
-  return join(dirname(fileURLToPath(import.meta.resolve("oxlint/package.json"))), "bin/oxlint");
+  return join(dirname(requireOxlint.resolve("oxlint/package.json")), "bin/oxlint");
 }
 
 type OxfmtFormat = (
@@ -33,18 +32,18 @@ function isOxfmtFormat(value: unknown): value is OxfmtFormat {
 
 function oxfmtFormat(): OxfmtFormat {
   const loaded: unknown = requireOxfmt("oxfmt");
-  if (!isRecord(loaded) || !isOxfmtFormat(loaded.format)) {
+  if (!isRecord(loaded) || !isOxfmtFormat(loaded["format"])) {
     throw new Error("oxfmt.format is missing");
   }
-  return loaded.format;
+  return loaded["format"];
 }
 
-async function lintCodes(source: string): Promise<string[]> {
-  const dir = await mkdtemp(join(tmpdir(), "oxlint-xor-"));
+function lintCodes(source: string): string[] {
+  const dir = mkdtempSync(join(tmpdir(), "oxlint-xor-"));
   const rc = join(dir, ".oxlintrc.json");
   const file = join(dir, "file.ts");
 
-  await writeFile(
+  writeFileSync(
     rc,
     `${JSON.stringify({
       ...config,
@@ -52,26 +51,25 @@ async function lintCodes(source: string): Promise<string[]> {
       options: { ...config.options, typeAware: false, typeCheck: false },
     })}\n`,
   );
-  await writeFile(file, source);
+  writeFileSync(file, source);
 
-  const result = Bun.spawnSync([oxlintCli(), "-c", rc, "-f", "json", file], {
+  const result = spawnSync(oxlintCli(), ["-c", rc, "-f", "json", file], {
     cwd: dir,
-    stderr: "pipe",
-    stdout: "pipe",
+    encoding: "utf8",
   });
-  const stdout = result.stdout.toString();
-  const parsed: unknown = JSON.parse(stdout);
-  if (!isRecord(parsed) || !Array.isArray(parsed.diagnostics)) {
-    throw new Error(stdout + result.stderr.toString());
+  const parsed: unknown = JSON.parse(result.stdout);
+  const diagnostics = isRecord(parsed) ? parsed["diagnostics"] : undefined;
+  if (!Array.isArray(diagnostics)) {
+    throw new TypeError(result.stdout + result.stderr);
   }
 
-  return parsed.diagnostics.flatMap((item) =>
-    isRecord(item) && typeof item.code === "string" ? [item.code] : [],
+  return diagnostics.flatMap((item) =>
+    isRecord(item) && typeof item["code"] === "string" ? [item["code"]] : [],
   );
 }
 
 test("printer-owned rules stay off; newline-after-import stays error", () => {
-  expect(config.rules).toEqual(
+  expect(config.rules).toStrictEqual(
     expect.objectContaining({
       "eslint/sort-imports": "off",
       "unicorn/empty-brace-spaces": "off",
@@ -85,11 +83,11 @@ test("printer-owned rules stay off; newline-after-import stays error", () => {
   );
 });
 
-test("oxlint does not report empty-brace-spaces on {} / function f() {}", async () => {
-  const object = await lintCodes("export const o = {};\n");
-  expect(object).toEqual([]);
+test("oxlint does not report empty-brace-spaces on {} / function f() {}", () => {
+  const object = lintCodes("export const o = {};\n");
+  expect(object).toStrictEqual([]);
 
-  const fn = await lintCodes("function f() {}\nexport { f };\n");
+  const fn = lintCodes("function f() {}\nexport { f };\n");
   expect(fn).not.toContain("unicorn(empty-brace-spaces)");
 });
 
@@ -116,7 +114,7 @@ export function magnitude(left: number, right: number): string {
     fmt,
   );
 
-  expect(result.errors).toEqual([]);
+  expect(result.errors).toStrictEqual([]);
   expect(result.code).toBe(`export const mask = 0xff;
 export const big = 0xabcdn;
 export const sep = 0xff_ff;
@@ -133,16 +131,16 @@ export function magnitude(left: number, right: number): string {
   return (left > 0 ? left : right) > 1 ? "y" : "n";
 }
 `);
-  expect(await lintCodes(result.code)).toEqual([]);
+  expect(lintCodes(result.code)).toStrictEqual([]);
 });
 
-test("import/newline-after-import still errors if the blank line is missing", async () => {
-  const missing = await lintCodes(`import { x } from "./x.ts";
+test("import/newline-after-import still errors if the blank line is missing", () => {
+  const missing = lintCodes(`import { x } from "./x.ts";
 export const y = 1;
 `);
   expect(missing).toContain("import(newline-after-import)");
 
-  const present = await lintCodes(`import { x } from "./x.ts";
+  const present = lintCodes(`import { x } from "./x.ts";
 
 export const y = 1;
 `);

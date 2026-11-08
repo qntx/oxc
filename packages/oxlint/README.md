@@ -1,10 +1,8 @@
+<!-- markdownlint-disable MD033 MD041 -->
+
 # @qntx/oxlint
 
-Shareable [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) config for Vite+ apps and TypeScript libraries.
-
-Clippy-mapped strictness: type safety and correctness fail the build (`any`, `!`, unsafe, floating promises, React Compiler). Tests relax like `allow-unwrap-in-tests`. Formatting is [`@qntx/oxfmt`](https://www.npmjs.com/package/@qntx/oxfmt), not lint.
-
-Requires **oxlint ^1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ 0.3.2 and later already satisfy the peer (0.3.3 nests 1.83.0).
+Shareable [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) config for Vite+ apps and TypeScript libraries. Clippy-mapped strictness: type safety and correctness fail the build (`any`, `!`, unsafe, floating promises, React Compiler). Tests relax like `allow-unwrap-in-tests`. Formatting is [`@qntx/oxfmt`](https://www.npmjs.com/package/@qntx/oxfmt), not lint.
 
 ## Install
 
@@ -12,16 +10,17 @@ Requires **oxlint ^1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that.
 bun add -d @qntx/oxlint @qntx/oxfmt
 ```
 
-Do **not** add `oxlint` or `oxlint-tsgolint` to a Vite+ app. `vp lint` already nests them.
+Do **not** add `oxlint`, `oxfmt`, or `oxlint-tsgolint` to a Vite+ app — `vp` already nests them. Requires Vite+ 1.4.0 or later (oxlint `^1.89.0`, oxlint-tsgolint `>=7.0.2004`).
 
-## Recipes
+## Usage
 
 ### Vite+ React
 
 ```ts
 import { defineConfig } from "vite-plus";
-import { react } from "@qntx/oxlint";
+
 import { fmt } from "@qntx/oxfmt";
+import { react } from "@qntx/oxlint";
 
 export default defineConfig({
   lint: react,
@@ -37,8 +36,9 @@ export default defineConfig({
 
 ```ts
 import { defineConfig } from "vite-plus";
-import { config } from "@qntx/oxlint";
+
 import { fmt } from "@qntx/oxfmt";
+import { config } from "@qntx/oxlint";
 
 export default defineConfig({
   lint: config,
@@ -52,8 +52,9 @@ export default defineConfig({
 
 ```ts
 import { defineConfig } from "vite-plus";
-import { config, merge } from "@qntx/oxlint";
+
 import { fmt } from "@qntx/oxfmt";
+import { config, merge } from "@qntx/oxlint";
 
 export default defineConfig({
   lint: merge(config, { rules: { "eslint/no-console": "off" } }),
@@ -61,19 +62,23 @@ export default defineConfig({
 });
 ```
 
-Drop default ignore patterns with `{ ignorePatterns: undefined }`. Replace them with `{ ignorePatterns: [] }` then set a new list.
+Drop default ignore patterns with `{ ignorePatterns: undefined }`. Replace them with `{ ignorePatterns: [] }` then set a new list. `import/no-unassigned-import` already allows `**/*.css` — extend `allow` for other side-effect imports.
 
 ### CLI
 
 ```ts
+// oxlint.config.ts
 export { config as default } from "@qntx/oxlint";
+
+// oxfmt.config.ts
+export { fmt as default } from "@qntx/oxfmt";
 ```
 
-Vite+ projects should put lint in `vite.config.ts`, not `oxlint.config.ts`.
+Vite+ projects should put lint and format in `vite.config.ts`.
 
 ## License
 
-MIT © [QuantX](https://qntx.org)
+Licensed under the MIT License ([LICENSE](LICENSE) or <https://opensource.org/licenses/MIT>).
 
 ---
 

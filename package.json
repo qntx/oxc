@@ -1,28 +1,37 @@
 {
-  "name": "oxlint",
+  "name": "@qntx/oxc-monorepo",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
+  "author": "QuantX <x@qntx.org>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qntx/oxc.git"
+  },
   "workspaces": [
     "packages/*"
   ],
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r typecheck && bun test && vp run -r build",
     "lint": "vp check",
-    "typecheck": "vp run -r typecheck",
+    "typecheck": "vp run -r typecheck && tsc --noEmit",
     "build": "vp run -r build",
-    "test": "bun test",
-    "check": "vp check",
+    "test": "vp run -r test && vp test",
+    "ready": "bun run lint && bun run typecheck && bun run build && bun run test",
+    "format": "vp check --fix",
+    "release": "bumpp",
     "prepare": "vp config"
   },
   "devDependencies": {
-    "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "@qntx/tsconfig": "1.0.1",
+    "@types/node": "26.6.6",
+    "bumpp": "12.3.0",
+    "typescript": "7.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
+    "vite-plus": "1.4.0"
   },
   "overrides": {
-    "oxlint": "1.82.0",
-    "oxlint-tsgolint": "7.0.2001",
-    "vite": "catalog:"
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0"
   },
   "devEngines": {
     "packageManager": {
@@ -32,11 +41,6 @@
     }
   },
   "engines": {
-    "bun": ">=1.4.0",
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
-  },
-  "catalog": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
-    "vite-plus": "0.3.1"
   }
 }

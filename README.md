@@ -1,88 +1,16 @@
-# oxlint
+<!-- markdownlint-disable MD033 MD041 -->
 
-Shareable [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) configs for Vite+ apps and TypeScript libraries.
+# oxc
 
-- **[`@qntx/oxlint`](packages/oxlint)** — correctness and type safety (`config`, `react`, `merge`).
-- **[`@qntx/oxfmt`](packages/oxfmt)** — printer (`fmt`). `printWidth: 100`, double quotes, semicolons, `sortImports` on.
+Shareable [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) presets for [Vite+](https://viteplus.dev) projects: [`@qntx/oxlint`](https://www.npmjs.com/package/@qntx/oxlint) (`packages/oxlint`) and [`@qntx/oxfmt`](https://www.npmjs.com/package/@qntx/oxfmt) (`packages/oxfmt`).
 
-Compose in one `vite.config.ts`. Do not use Oxlint `extends` (it merges only `rules` / `plugins` / `overrides` and drops `env` / `options` / `settings` / `ignorePatterns`).
-
-The sibling repo [`qntx/oxfmt`](https://github.com/qntx/oxfmt) is a Vite+ starter. `@qntx/oxfmt` lives here.
-
-Requires **oxlint ^1.82.0**. Vite+ 0.3.1 nests 1.81.0; this repo overrides that. Vite+ 0.3.2 and later already satisfy the peer (0.3.3 nests 1.83.0). `@qntx/oxfmt` accepts oxfmt `>=0.66.0 <1.0.0`.
-
-## Install
-
-```bash
-bun add -d @qntx/oxlint @qntx/oxfmt
-```
-
-Do **not** add `oxlint`, `oxfmt`, or `oxlint-tsgolint` to a Vite+ app. `vp` already nests them.
-
-## Recipes
-
-### Vite+ React
-
-```ts
-import { defineConfig } from "vite-plus";
-import { react } from "@qntx/oxlint";
-import { fmt } from "@qntx/oxfmt";
-
-export default defineConfig({
-  lint: react,
-  fmt,
-});
-```
-
-`react` already includes the core TypeScript/ESLint/Vitest table plus native `react` / `jsx-a11y`.
-
-`react` assumes the project is compiled by React Compiler: it enables the native compiler rules, forbids `useMemo` / `useCallback` / `memo` (named, namespace, and `React.*` access), and turns off rules that only push toward manual memoization. Setting your own `eslint/no-restricted-imports` or `eslint/no-restricted-properties` replaces the preset entry, so copy its `react` entry into yours.
-
-### TypeScript library
-
-```ts
-import { defineConfig } from "vite-plus";
-import { config } from "@qntx/oxlint";
-import { fmt } from "@qntx/oxfmt";
-
-export default defineConfig({
-  lint: config,
-  fmt,
-});
-```
-
-`config` does not enable React plugins.
-
-### Overrides
-
-```ts
-import { defineConfig } from "vite-plus";
-import { config, merge } from "@qntx/oxlint";
-import { fmt } from "@qntx/oxfmt";
-
-export default defineConfig({
-  lint: merge(config, { rules: { "eslint/no-console": "off" } }),
-  fmt: { ...fmt, printWidth: 120 },
-});
-```
-
-Drop default ignore patterns with `{ ignorePatterns: undefined }`. Replace them with `{ ignorePatterns: [] }` then set a new list. Top-level `fmt` keys override with spread; nested object settings (`sortImports` and friends) extend by spreading the nested object — see the `@qntx/oxfmt` README.
-
-### CLI
-
-```ts
-// oxlint.config.ts
-export { config as default } from "@qntx/oxlint";
-
-// oxfmt.config.ts
-export { fmt as default } from "@qntx/oxfmt";
-```
-
-Vite+ projects should put lint and format in `vite.config.ts`.
+Changes are tracked in [CHANGELOG.md](CHANGELOG.md); contributor invariants and the local gate live in [AGENTS.md](AGENTS.md).
 
 ## License
 
-MIT © [QuantX](https://qntx.org)
+Licensed under the MIT License ([LICENSE](LICENSE) or <https://opensource.org/licenses/MIT>).
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in this project shall be licensed as above, without any additional terms or conditions.
 
 ---
 
